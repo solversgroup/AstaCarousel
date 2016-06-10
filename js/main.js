@@ -169,7 +169,7 @@ $(document).ready(function() {
             next : $('.button-next')
         }
 
-        if (carousel_length == 3) {
+        if (carousel_length == 3 || carousel_length == 2) {
 
             carousel_items
                 .clone()
