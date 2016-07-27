@@ -1,13 +1,14 @@
 $(document).ready(function() {
 
     /*!
-     * Asta Carousel.js v0.0.9-alpha
+     * Asta Carousel.js v0.1.0-alpha
      * License: MIT
      */
 
     ;(function () {
 
         var cloned_items, direction, startX, endX, distance,
+            dots = true,
             start_index = 3,
             current_index = start_index,
             prev_index = 0,
@@ -166,12 +167,44 @@ $(document).ready(function() {
             changeItems();
         };
 
+        var goTo = function(index) {
+
+            current_index = index;
+
+            if (current_index === carousel_length) {
+                current_index = 0;
+            }
+
+            refreshIndexes();
+            changeItems();
+        };
+
         var carousel = $('#asta-carousel');
         var carousel_items = $('.asta-carousel__item');
         var carousel_length = carousel_items.length;
         var buttons = {
             prev : $('.button-prev'),
             next : $('.button-next')
+        }
+
+        if (dots) {
+
+            var astaDots = $('<div class="asta-carousel__dots">');
+            var astaDot  = null;
+
+            $.each(carousel_items, function(index, element) {
+
+                astaDot = $('<div class="asta-carousel__dot">');
+
+                astaDot.on('click', function() {
+                    $(this).addClass('is-active').siblings().removeClass('is-active');
+                    goTo($(this).index());
+                });
+
+                astaDots.append(astaDot);
+            });
+
+            carousel.after(astaDots);
         }
 
         if (carousel_length == 3 || carousel_length == 2) {
