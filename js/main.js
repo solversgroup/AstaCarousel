@@ -1,11 +1,11 @@
 $(document).ready(function() {
 
     /*!
-     * Asta Carousel.js v0.0.8-alpha
+     * Asta Carousel.js v0.0.9-alpha
      * License: MIT
      */
 
-    (function () {
+    ;(function () {
 
         var cloned_items, direction, startX, endX, distance,
             start_index = 3,
@@ -45,15 +45,21 @@ $(document).ready(function() {
 
             direction = (e.touches[0].clientX > startX) ? 'prev' : 'next';
 
-            if (direction == 'prev') {
-                distance = Math.ceil(startX - e.touches[0].clientX);
-            } else {
-                distance = Math.ceil(e.touches[0].clientX - startX);
+            distance = Math.ceil(startX - e.touches[0].clientX);
+
+            if (Math.sign(distance) < 0) {
+                distance = distance * -1;
             }
+
         }
 
         function touchEnd(e) {
-            (direction == 'next') ? next() : prev();
+
+            if (distance > 30) {
+                (direction == 'next') ? next() : prev();
+            }
+
+            distance = 0;
         }
 
         function refreshIndexes() {
@@ -74,7 +80,6 @@ $(document).ready(function() {
                 next_index = current_index + 1;
             }
 
-            console.info(prev_index, current_index, next_index);
         }
 
         function changeItems(resize) {
@@ -219,9 +224,6 @@ $(document).ready(function() {
 
         buttons.prev[0].addEventListener('click', prev, false);
         buttons.next[0].addEventListener('click', next, false);
-
-        console.info(carousel);
-
 
         window.addEventListener('resize', refreshPosition);
 
