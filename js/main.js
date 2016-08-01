@@ -108,7 +108,7 @@ $(document).ready(function() {
                 marginLeft : 0,
                 top        : '50%',
                 marginTop  : Math.ceil(carousel_items.eq(resize ? prev_index : current_index).outerHeight() / 2 * -1)
-            });
+            }).removeClass('is-active');
 
             carousel_items.eq(next_index).css({
                 opacity    : item_opacity,
@@ -118,7 +118,7 @@ $(document).ready(function() {
                 marginLeft : 0,
                 top        : '50%',
                 marginTop  : Math.ceil(carousel_items.eq(resize ? prev_index : current_index).outerHeight() / 2 * -1),
-            });
+            }).removeClass('is-active');
 
 
             carousel_items.eq(current_index).css({
@@ -129,7 +129,7 @@ $(document).ready(function() {
                 marginTop  : 0,
                 left       : '50%',
                 marginLeft : (item_width / 2 *-1) + '%',
-            });
+            }).addClass('is-active');
         }
 
         var prev = function(event) {
